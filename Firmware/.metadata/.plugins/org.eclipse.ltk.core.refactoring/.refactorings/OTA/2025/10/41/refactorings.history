@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;OTA/OTA/config/lwprintf_opts_template.h&apos; to &apos;lwprintf_opts.h&apos;" description="Rename resource &apos;lwprintf_opts_template.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="OTA/config/lwprintf_opts_template.h" name="lwprintf_opts.h" stamp="1759888872406" updateReferences="true"/>
+</session>

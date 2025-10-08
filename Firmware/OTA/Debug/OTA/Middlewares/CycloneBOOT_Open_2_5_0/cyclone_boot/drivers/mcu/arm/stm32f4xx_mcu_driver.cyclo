@@ -1,0 +1,5 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/mcu/arm/stm32f4xx_mcu_driver.c:65:6:mcuJumpToApplication	1
+../Drivers/CMSIS/Include/core_cm4.h:1938:34:__NVIC_SystemReset	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/mcu/arm/stm32f4xx_mcu_driver.c:44:10:mcuGetVtorOffset	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/mcu/arm/stm32f4xx_mcu_driver.c:54:6:mcuSystemReset	0
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/mcu/arm/stm32f4xx_mcu_driver.c:137:39:mcuBootAppImageAsm	1
