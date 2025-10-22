@@ -1,0 +1,13 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:57:9:x509FormatSubjectPublicKeyInfo	12
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:275:9:x509FormatAlgoId	7
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:428:9:x509FormatRsaPublicKey	4
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:505:9:x509FormatDsaPublicKey	2
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:541:9:x509FormatDsaParameters	5
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:635:9:x509FormatEcPublicKey	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:657:9:x509FormatEcParameters	2
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:695:9:x509ExportRsaPublicKey	4
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:758:9:x509ExportRsaPrivateKey	20
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:936:9:x509ExportDsaPublicKey	2
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:964:9:x509ExportDsaPrivateKey	2
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:992:9:x509ExportDsaParameters	5
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_format.c:1065:9:x509ExportEddsaPrivateKey	1

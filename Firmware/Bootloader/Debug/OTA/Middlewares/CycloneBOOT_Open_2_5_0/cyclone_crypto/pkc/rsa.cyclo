@@ -1,0 +1,15 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:92:6:rsaInitPublicKey	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:105:6:rsaFreePublicKey	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:118:6:rsaInitPrivateKey	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:140:6:rsaFreePrivateKey	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:195:21:rsaGeneratePrivateKey	37
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:356:9:rsaGeneratePublicKey	5
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:165:9:rsaGenerateKeyPair	2
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:401:9:rsaesPkcs1v15Encrypt	11
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:499:9:rsaesPkcs1v15Decrypt	14
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:660:9:rsaesOaepEncrypt	12
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:766:9:rsaesOaepDecrypt	14
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:927:9:rsassaPkcs1v15Sign	19
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:1060:9:rsassaPkcs1v15Verify	12
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:1181:9:rsassaPssSign	13
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa.c:1301:9:rsassaPssVerify	12

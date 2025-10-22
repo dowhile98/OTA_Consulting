@@ -1,0 +1,11 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:57:9:x509ParseSubjectPublicKeyInfo	64	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:198:9:x509ParseAlgoId	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:310:9:x509ParseRsaPublicKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:378:9:x509ParseDsaPublicKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:416:9:x509ParseDsaParameters	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:504:9:x509ParseEcPublicKey	24	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:531:9:x509ParseEcParameters	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:564:9:x509ImportRsaPublicKey	32	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:634:9:x509ImportDsaPublicKey	24	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:719:9:x509ImportEcPublicKey	32	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_key_parse.c:789:9:x509ImportEddsaPublicKey	16	static

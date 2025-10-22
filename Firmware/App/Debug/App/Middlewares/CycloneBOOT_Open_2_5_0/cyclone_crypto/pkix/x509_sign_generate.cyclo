@@ -1,0 +1,9 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_sign_generate.c:54:9:x509RegisterSignGenCallback	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_sign_generate.c:81:9:x509GenerateSignature	6
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_sign_generate.c:210:9:x509GenerateRsaSignature	2
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_sign_generate.c:251:9:x509GenerateRsaPssSignature	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_sign_generate.c:291:9:x509GenerateDsaSignature	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_sign_generate.c:346:9:x509GenerateEcdsaSignature	5
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_sign_generate.c:416:9:x509GenerateSm2Signature	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_sign_generate.c:461:9:x509GenerateEd25519Signature	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/x509_sign_generate.c:509:9:x509GenerateEd448Signature	1

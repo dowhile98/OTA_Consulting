@@ -1,0 +1,16 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:3564:6:secp224r1FieldMod	48	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:3934:6:secp256r1FieldMod	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4172:6:secp384r1FieldMod	64	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4457:6:secp521r1FieldMod	88	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:3656:6:secp224r1FieldInv	72	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4036:6:secp256r1FieldInv	80	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4314:6:secp384r1FieldInv	160	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4596:6:secp521r1FieldInv	152	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:3713:6:secp224r1ScalarMod	96	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4083:6:secp256r1ScalarMod	104	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4370:6:secp384r1ScalarMod	136	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4114:6:secp256r1ScalarInv	128	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4401:6:secp384r1ScalarInv	128	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4680:6:secp521r1ScalarInv	160	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:4639:6:secp521r1ScalarMod	360	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/ec_curves.c:5888:16:ecGetCurve	16	static

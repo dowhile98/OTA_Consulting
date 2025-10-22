@@ -14,3 +14,6 @@
 1759892691748	Delete resource 'OTA/OTA/Middlewares/cycloneBOOT/cyclone_crypto/scep'
 1759892711444	Delete resource 'OTA/OTA/Middlewares/cycloneBOOT/cyclone_crypto/ocsp'
 1759893166231	Delete resource 'OTA/OTA/Middlewares/cycloneBOOT/cyclone_boot/bootloader/second_stage'
+1760146073481	Rename resource 'OTA'
+1760151541084	Delete resource 'BrightC_ETH_CycloneTCP_FileX'
+1760151550179	Delete resource 'BrightC_Bootloader_CycloneBOOT'

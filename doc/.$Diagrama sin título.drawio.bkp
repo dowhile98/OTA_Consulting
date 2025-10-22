@@ -1,0 +1,16 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="Página-1" id="udZpYxL0pvIAhHbLuGl_">
+    <mxGraphModel dx="983" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4U5-mPCTqO4f_CCePqSD-1" value="OTA (over the air)&lt;div&gt;&lt;ol&gt;&lt;li&gt;El servidor (Pantalla HMI)&lt;/li&gt;&lt;ol&gt;&lt;li&gt;Almacena el codigo binario o la actualizacion&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;dispositivo cliente (STM32 via UART [ymodem])&lt;/li&gt;&lt;ol&gt;&lt;li&gt;descarga el codigo binario o imagen de actualización&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;Bootloader (cyclone Boot)&lt;/li&gt;&lt;ol&gt;&lt;li&gt;verificar la imagen&lt;/li&gt;&lt;ol&gt;&lt;li&gt;CRC, HASH256, CHECKSUM..&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;Escribir la imagen la memoria de applicación&lt;/li&gt;&lt;li&gt;fallas y retroceso de version de firmware&lt;/li&gt;&lt;/ol&gt;&lt;/ol&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="190" y="10" width="380" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="4U5-mPCTqO4f_CCePqSD-2" value="&lt;ul&gt;&lt;li&gt;single boot (single bank)&lt;/li&gt;&lt;ul&gt;&lt;li&gt;abstento a fallas&lt;/li&gt;&lt;li&gt;se divide la flash en dos secciones&lt;/li&gt;&lt;ul&gt;&lt;li&gt;bootloader (proyecto 1)&lt;/li&gt;&lt;li&gt;main application (proyecto 2)&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;li&gt;dual bank (ota)&lt;/li&gt;&lt;ul&gt;&lt;li&gt;doble memoria para la aplicación (un proyecto)&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="190" y="290" width="390" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

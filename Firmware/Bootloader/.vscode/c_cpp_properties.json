@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "OTA",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/**"
+            ],
+            "defines": [
+                "STM32F4xxxG",
+                "GPL_LICENSE_TERMS_ACCEPTED",
+                "USE_HAL_DRIVER",
+                "STM32F407xx"
+            ],
+            "compilerPath": "arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "gnu++11",
+            "intelliSenseMode": "${default}"
+        }
+    ],
+    "version": 4
+}

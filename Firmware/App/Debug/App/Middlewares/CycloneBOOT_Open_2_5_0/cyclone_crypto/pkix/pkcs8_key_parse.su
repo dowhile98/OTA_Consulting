@@ -1,0 +1,14 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:55:9:pkcs8ParsePrivateKeyInfo	80	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:230:9:pkcs8ParsePrivateKeyAlgo	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:339:9:pkcs8ParseRsaPrivateKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:536:9:pkcs8ParseDsaPrivateKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:683:9:pkcs8ParseEcPrivateKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:779:9:pkcs8ParseEcPublicKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:820:9:pkcs8ParseEddsaPrivateKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:849:9:pkcs8ParseEddsaPublicKey	24	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:874:9:pkcs8ParseEncryptedPrivateKeyInfo	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:926:9:pkcs8ParseEncryptionAlgoId	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:976:9:pkcs8ImportRsaPrivateKey	32	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:1112:9:pkcs8ImportDsaPrivateKey	24	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:1207:9:pkcs8ImportEcPrivateKey	32	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_parse.c:1304:9:pkcs8ImportEddsaPrivateKey	16	static

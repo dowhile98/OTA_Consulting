@@ -1,0 +1,6 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_format.c:55:9:pkcs8FormatRsaPrivateKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_format.c:92:9:pkcs8FormatDsaPrivateKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_format.c:129:9:pkcs8FormatEcPrivateKey	64	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_format.c:252:9:pkcs8FormatEcPublicKey	56	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_format.c:313:9:pkcs8FormatEddsaPrivateKey	24	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/pkcs8_key_format.c:355:9:pkcs8FormatEddsaPublicKey	24	static

@@ -1,0 +1,139 @@
+/**
+ * @file ymodem.h
+ * @brief YMODEM Protocol Library for Embedded Systems
+ * @version 1.0
+ */
+
+#ifndef YMODEM_H
+#define YMODEM_H
+
+#include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* YMODEM Protocol Constants */
+#define YMODEM_PACKET_SIZE         128
+#define YMODEM_PACKET_1K_SIZE      1024
+#define YMODEM_DATA_SIZE           (YMODEM_PACKET_SIZE - 3)
+#define YMODEM_DATA_1K_SIZE        (YMODEM_PACKET_1K_SIZE - 3)
+
+#define YMODEM_SOH                 0x01
+#define YMODEM_STX                 0x02
+#define YMODEM_EOT                 0x04
+#define YMODEM_ACK                 0x06
+#define YMODEM_NAK                 0x15
+#define YMODEM_CAN                 0x18
+#define YMODEM_C                   0x43
+
+#define YMODEM_MAX_FILENAME_LEN    64
+#define YMODEM_MAX_FILE_SIZE_LEN   16
+#define YMODEM_MAX_RETRIES         10
+#define YMODEM_TIMEOUT_MS          5000  // Increased timeout
+
+/* Error Codes */
+typedef enum {
+    YMODEM_OK = 0,
+    YMODEM_ERROR_TIMEOUT,
+    YMODEM_ERROR_CANCELLED,
+    YMODEM_ERROR_CRC,
+    YMODEM_ERROR_SEQUENCE,
+    YMODEM_ERROR_PROTOCOL,
+    YMODEM_ERROR_MEMORY,
+    YMODEM_ERROR_IO,
+    YMODEM_ERROR_INVALID_PARAM
+} ymodem_result_t;
+
+/* YMODEM State Machine */
+typedef enum {
+    YMODEM_STATE_IDLE,
+    YMODEM_STATE_WAIT_C,
+    YMODEM_STATE_RECEIVE_HEADER,
+    YMODEM_STATE_RECEIVE_DATA,
+    YMODEM_STATE_RECEIVE_EOT,
+    YMODEM_STATE_COMPLETE,
+    YMODEM_STATE_ERROR
+} ymodem_state_t;
+
+/* Callback Function Types */
+typedef ymodem_result_t (*ymodem_read_cb_t)(uint8_t *data, size_t size, uint32_t timeout_ms);
+typedef ymodem_result_t (*ymodem_write_cb_t)(const uint8_t *data, size_t size);
+typedef ymodem_result_t (*ymodem_data_write_cb_t)(const uint8_t *data, size_t size, uint32_t offset);
+typedef ymodem_result_t (*ymodem_data_read_cb_t)(uint8_t *data, size_t size, uint32_t offset);
+typedef void (*ymodem_progress_cb_t)(uint32_t file_size, uint32_t transferred, const char *filename);
+typedef void (*ymodem_status_cb_t)(ymodem_state_t state, ymodem_result_t result);
+
+/* YMODEM Handle Structure */
+typedef struct {
+    /* Callbacks */
+    ymodem_read_cb_t read_cb;
+    ymodem_write_cb_t write_cb;
+    ymodem_data_write_cb_t data_write_cb;
+    ymodem_data_read_cb_t data_read_cb;
+    ymodem_progress_cb_t progress_cb;
+    ymodem_status_cb_t status_cb;
+
+    /* Transfer State */
+    ymodem_state_t state;
+    ymodem_result_t last_error;
+    bool use_1k_blocks;
+    bool transfer_active;
+
+    /* File Information */
+    char filename[YMODEM_MAX_FILENAME_LEN];
+    uint32_t file_size;
+    uint32_t bytes_transferred;
+
+    /* Protocol Control */
+    uint8_t packet_number;
+    uint8_t expected_packet;
+    uint8_t retry_count;
+    uint32_t timeout_ms;
+    uint8_t max_retries;
+
+    /* Static Buffers - No dynamic allocation */
+    uint8_t rx_buffer[YMODEM_PACKET_1K_SIZE + 4];
+    uint8_t tx_buffer[YMODEM_PACKET_1K_SIZE + 4];
+
+} ymodem_handle_t;
+
+/* Public API Functions */
+ymodem_result_t ymodem_init(ymodem_handle_t *handle,
+                           ymodem_read_cb_t read_cb,
+                           ymodem_write_cb_t write_cb);
+
+void ymodem_set_data_callbacks(ymodem_handle_t *handle,
+                              ymodem_data_write_cb_t data_write_cb,
+                              ymodem_data_read_cb_t data_read_cb);
+
+void ymodem_set_event_callbacks(ymodem_handle_t *handle,
+                               ymodem_progress_cb_t progress_cb,
+                               ymodem_status_cb_t status_cb);
+
+void ymodem_set_config(ymodem_handle_t *handle,
+                      bool use_1k_blocks,
+                      uint32_t timeout_ms,
+                      uint8_t max_retries);
+
+ymodem_result_t ymodem_receive(ymodem_handle_t *handle);
+
+ymodem_result_t ymodem_transmit(ymodem_handle_t *handle,
+                               const char *filename,
+                               uint32_t file_size);
+
+void ymodem_abort(ymodem_handle_t *handle);
+
+ymodem_state_t ymodem_get_state(const ymodem_handle_t *handle);
+
+ymodem_result_t ymodem_get_last_error(const ymodem_handle_t *handle);
+
+void ymodem_deinit(ymodem_handle_t *handle);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* YMODEM_H */

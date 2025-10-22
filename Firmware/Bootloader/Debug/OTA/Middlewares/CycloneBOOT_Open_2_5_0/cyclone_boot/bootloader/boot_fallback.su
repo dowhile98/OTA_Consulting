@@ -1,0 +1,7 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/boot_fallback.c:151:15:fallbackDeleteSlot	8	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/boot_fallback.c:180:15:fallbackRestoreBackupSlot	8	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/boot_fallback.c:202:15:fallbackCompareSlots	80	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/boot_fallback.c:257:15:fallbackFindSlotWithEquivImg	104	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/boot_fallback.c:53:15:fallbackTask	32	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/boot_fallback.c:343:27:fallbackTriggerInit	0	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/boot_fallback.c:359:27:fallbackTriggerGetStatus	0	static

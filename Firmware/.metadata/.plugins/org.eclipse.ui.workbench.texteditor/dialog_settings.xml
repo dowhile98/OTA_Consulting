@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
+	<list key="searchhistory">
+		<item value="receive_data"/>
+		<item value="receive_datta"/>
+		<item value="YMODEM_STATE_COMPLETE"/>
+		<item value="ymodem_receive"/>
+		<item value="ymodem_wait_for_byte"/>
+		<item value="ymodem_change_state"/>
+		<item value="YMODEM_FRE"/>
+		<item value="YMODEM_MALLOC"/>
+		<item value="MALL"/>
+		<item value="ymodem_calculate_checksum"/>
+		<item value="osAllocMem"/>
+	</list>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="&#x09;if(eeprom_init() != HAL_OK)"/>
+		<list key="findhistory">
+			<item value="&#x09;if(eeprom_init() != HAL_OK)"/>
+		</list>
+	</section>
+</section>

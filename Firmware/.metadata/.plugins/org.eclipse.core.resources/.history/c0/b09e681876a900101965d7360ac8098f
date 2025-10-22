@@ -1,0 +1,331 @@
+
+
+
+/*Includes ------------------------------------------------------------------------------------------------------*/
+#include "ymodem.h"
+#include "string.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+
+#define CRC16_F       /* activate the CRC16 integrity */
+
+
+
+/*private function definition ----------------------------------------------------------------------------------*/
+//Y-Modem private related routines
+
+/**
+ * @brief Update CRC16 for input byte
+ * @param[in] crc_in input value
+ * @param[in] input byte
+ * @return None
+ **/
+static uint16_t UpdateCRC16(uint16_t crc_in, uint8_t byte){
+	uint32_t crc = crc_in;
+	uint32_t in = byte | 0x100;
+
+	do
+	{
+		crc <<= 1;
+		in <<= 1;
+		if(in & 0x100)
+			++crc;
+		if(crc & 0x10000)
+			crc ^= 0x1021;
+	}
+
+	while(!(in & 0x10000));
+
+	return crc & 0xffffu;
+}
+/**
+ * @brief Cal CRC16 for YModem Packet
+ * @param[in] data
+ * @param[in] length
+ * @return None
+ **/
+
+static uint16_t Cal_CRC16(const uint8_t* p_data, uint32_t size){
+	uint32_t crc = 0;
+	const uint8_t* dataEnd = p_data+size;
+
+	while(p_data < dataEnd)
+		crc = UpdateCRC16(crc, *p_data++);
+
+	crc = UpdateCRC16(crc, 0);
+	crc = UpdateCRC16(crc, 0);
+
+	return crc&0xffffu;
+}
+
+
+
+COM_StatusTypeDef Serial_PutByte(Ymodem_t *state, uint8_t param )
+{
+	if(state->write_fn == NULL){
+		return COM_ERROR;
+	}
+
+	return state->write_fn(&param, 1, DOWNLOAD_TIMEOUT);
+}
+/**
+ * @brief Receive a packet from sender
+ * @param[out] data
+ * @param[out] length
+ *     0: end of transmission
+ *     2: abort by sender
+ *    >0: packet length
+ * @param[in]  timeout
+ * @return COM_OK: normally return
+ *         COM_ERROR: abort by user
+ **/
+static COM_StatusTypeDef ReceivePacket(Ymodem_t *state,uint8_t *p_data, uint32_t *p_length, uint32_t timeout){
+	uint32_t crc;
+	uint32_t packet_size = 0;
+	COM_StatusTypeDef status;
+	uint8_t char1;
+
+	*p_length = 0;
+
+	if(state->read_fn == NULL){
+		return COM_ERROR;
+	}
+	status = state->read_fn(&char1, 1, timeout);
+
+	if (status == COM_OK)
+	{
+		switch (char1)
+		{
+		case SOH:
+			packet_size = PACKET_SIZE;
+			break;
+		case STX:
+			packet_size = PACKET_1K_SIZE;
+			break;
+		case EOT:
+			break;
+		case CA:
+			if((state->read_fn(&char1, 1, timeout) == COM_OK) && (char1 == CA))
+			{
+				packet_size = 2;
+			}
+			else
+			{
+				status = COM_ERROR;
+			}
+			break;
+		case ABORT1:
+		case ABORT2:
+			status = COM_ABORT;
+			break;
+		default:
+			status = COM_ERROR;
+			break;
+		}
+		*p_data = char1;
+
+		if (packet_size >= PACKET_SIZE )
+		{
+			status = state->read_fn(&p_data[PACKET_NUMBER_INDEX], packet_size + PACKET_OVERHEAD_SIZE, timeout);
+
+			/* Simple packet sanity check */
+			if (status == COM_OK )
+			{
+				if (p_data[PACKET_NUMBER_INDEX] != ((p_data[PACKET_CNUMBER_INDEX]) ^ NEGATIVE_BYTE))
+				{
+					packet_size = 0;
+					status = COM_ERROR;
+				}
+				else
+				{
+					/* Check packet CRC */
+					crc = p_data[ packet_size + PACKET_DATA_INDEX ] << 8;
+					crc += p_data[ packet_size + PACKET_DATA_INDEX + 1 ];
+					if (Cal_CRC16(&p_data[PACKET_DATA_INDEX], packet_size) != crc )
+					{
+						packet_size = 0;
+						status = COM_ERROR;
+					}
+				}
+			}
+			else
+			{
+				packet_size = 0;
+			}
+		}
+	}
+	*p_length = packet_size;
+	return status;
+}
+
+
+/*public function definition -----------------------------------------------------------------------------------*/
+/**
+ * @brief Receive a file using the ymodem protocol with CRC16.
+ * @param[out] p_size The size of the file.
+ * @return COM_StatusTypeDef result of reception/programming
+ **/
+COM_StatusTypeDef Ymodem_receive(Ymodem_t *state, Ymodem_rx_callback callback){
+	uint32_t i, packet_length, session_done = 0, file_done, errors = 0, session_begin = 0, packets_received = 0, bytes_received = 0;
+	uint32_t filesize;
+	uint8_t *file_ptr, *data_ptr;
+	uint8_t file_size[FILE_SIZE_LENGTH];
+	COM_StatusTypeDef result = COM_OK;
+
+
+	if((state == NULL) || (callback == NULL)){
+		return COM_ERROR;
+	}
+
+	while ((session_done == 0) && (result == COM_OK))
+	{
+		packets_received = 0;
+		file_done = 0;
+		while ((file_done == 0) && (result == COM_OK))
+		{
+			switch (ReceivePacket(state, state->aPacketData, &packet_length, DOWNLOAD_TIMEOUT))
+			{
+			case COM_OK:
+				errors = 0;
+				switch (packet_length)
+				{
+				case 2:
+					/* Abort by sender */
+
+					Serial_PutByte(state, ACK);
+					result = COM_ABORT;
+					break;
+				case 0:
+					/* End of transmission */
+					Serial_PutByte(state, ACK);
+					file_done = 1;
+					break;
+				default:
+					/* Normal packet */
+					if (state->aPacketData[PACKET_NUMBER_INDEX] != (0xFFU & packets_received))
+					{
+						Serial_PutByte(state, NAK);
+					}
+					else
+					{
+						if (packets_received == 0)
+						{
+							/* File name packet */
+							if (state->aPacketData[PACKET_DATA_INDEX] != 0)
+							{
+								/* File name extraction */
+								i = 0;
+								file_ptr = state->aPacketData + PACKET_DATA_INDEX;
+								while ( (*file_ptr != 0) && (i < FILE_NAME_LENGTH))
+								{
+									state->aFileName[i++] = *file_ptr++;
+								}
+
+								/* File size extraction */
+								state->aFileName[i++] = '\0';
+								i = 0;
+								file_ptr ++;
+								while ( (*file_ptr != ' ') && (i < FILE_SIZE_LENGTH))
+								{
+									file_size[i++] = *file_ptr++;
+								}
+								file_size[i++] = '\0';
+
+								filesize = atoi((const char *)file_size);
+								state->size = filesize;
+
+								//Debug message
+#if 0
+								printf("\r\n");
+								printf("Receiving file \"%s\" (%d bytes)...\r\n", state->aFileName, (int)filesize);
+								printf("\r\n");
+#endif
+								//first callback
+								callback((char *)state->aFileName, state->size, state->aPacketData, 0);
+								//send ACK
+								Serial_PutByte(state, ACK);
+								Serial_PutByte(state, CRC16);
+							}
+							/* File header packet is empty, end session */
+							else
+							{
+								Serial_PutByte(state, ACK);
+								file_done = 1;
+								session_done = 1;
+								break;
+							}
+						}
+						else /* Data packet */
+						{
+							/* Data extraction */
+							data_ptr = (uint8_t*)&state->aPacketData[PACKET_DATA_INDEX];
+
+							//Debug message
+#if 0
+							printf("Packet received (block: %d, %d bytes):\r\n", (int)packets_received, (int)packet_length);
+#endif
+							//Check if remaining bytes is less than 1024?
+							if((filesize - bytes_received) < 1024)
+							{
+								//Discard '1A' fill data block
+								while(data_ptr[packet_length-1] == '\x1A')
+								{
+									packet_length--;
+								}
+							}
+
+							//Update received data bytes
+							bytes_received += packet_length;
+
+							//Debug message
+#if 0
+							printf("- Data size : %d\r\n", (int)packet_length);
+							printf("- Recv bytes : %d/%d\r\n", (int)bytes_received, (int)filesize);
+							printf("- Remaining bytes : %d\r\n", (int)(filesize - bytes_received));
+#endif
+							/* Process received file data here */
+							if(callback((char *)state->aFileName, state->size, data_ptr, packet_length) == COM_OK){
+								Serial_PutByte(state, ACK);
+							}
+
+							else /* An error occurred while writing to Flash memory */
+							{
+								/* End session */
+								Serial_PutByte(state, CA);
+								Serial_PutByte(state, CA);
+								result = COM_DATA;
+							}
+						}
+						packets_received ++;
+						session_begin = 1;
+					}
+					break;
+				}
+				break;
+				case COM_ABORT: /* Abort actually */
+					Serial_PutByte(state, CA);
+					Serial_PutByte(state, CA);
+					result = COM_ABORT;
+					break;
+				default:
+					if (session_begin > 0)
+					{
+						errors ++;
+					}
+					if (errors > MAX_ERRORS)
+					{
+						/* Abort communication */
+						Serial_PutByte(state, CA);
+						Serial_PutByte(state, CA);
+					}
+					else
+					{
+						Serial_PutByte(state, CRC16); /* Ask for a packet */
+					}
+					break;
+			}
+		}
+	}
+	return result;
+}

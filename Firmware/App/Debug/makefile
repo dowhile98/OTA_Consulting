@@ -12,6 +12,36 @@ RM := rm -rf
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include App/Middlewares/ymodem/subdir.mk
+-include App/Middlewares/stm32_log/subdir.mk
+-include App/Middlewares/lwprintf/src/system/subdir.mk
+-include App/Middlewares/lwprintf/src/lwprintf/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/xof/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/rng/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pqc/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkix/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/mpi/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/mac/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/lwc/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/kdf/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/hash/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/hardware/stm32f4xx/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/encoding/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/ecc/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/cipher_modes/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/cipher/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/aead/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/update/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/security/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/memory/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/image/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/mcu/arm/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/core/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/common/subdir.mk
+-include App/App/Src/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -52,9 +82,13 @@ default.size.stdout \
 OBJDUMP_LIST += \
 App.list \
 
+OBJCOPY_BIN += \
+App.bin \
+
 
 # All Target
-all: main-build
+all:
+	+@$(MAKE) --no-print-directory pre-build && $(MAKE) --no-print-directory main-build && $(MAKE) --no-print-directory post-build
 
 # Main-build Target
 main-build: App.elf secondary-outputs
@@ -75,12 +109,25 @@ App.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+App.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "App.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) App.elf App.list App.map default.size.stdout
+	-$(RM) App.bin App.elf App.list App.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+pre-build:
+	python3 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/../utils/rc/rc.py /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/resources /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/App/App/Src/res.c
+	-@echo ' '
+
+post-build:
+	python3 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/scripts/misc/copy_file.py /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/Debug/App.bin /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/
+	-@echo ' '
+
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
@@ -89,6 +136,6 @@ fail-specified-linker-script-missing:
 warn-no-linker-script-specified:
 	@echo 'Warning: No linker script specified. Check the linker settings in the build configuration.'
 
-.PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified
+.PHONY: all clean dependents main-build fail-specified-linker-script-missing warn-no-linker-script-specified pre-build post-build
 
 -include ../makefile.targets

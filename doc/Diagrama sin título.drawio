@@ -1,0 +1,75 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5" pages="2">
+  <diagram name="Página-1" id="udZpYxL0pvIAhHbLuGl_">
+    <mxGraphModel dx="983" dy="581" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4U5-mPCTqO4f_CCePqSD-1" value="OTA (over the air)&lt;div&gt;&lt;ol&gt;&lt;li&gt;El servidor (Pantalla HMI)&lt;/li&gt;&lt;ol&gt;&lt;li&gt;Almacena el codigo binario o la actualizacion&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;dispositivo cliente (STM32 via UART [ymodem])&lt;/li&gt;&lt;ol&gt;&lt;li&gt;descarga el codigo binario o imagen de actualización&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;Bootloader (cyclone Boot)&lt;/li&gt;&lt;ol&gt;&lt;li&gt;verificar la imagen&lt;/li&gt;&lt;ol&gt;&lt;li&gt;CRC, HASH256, CHECKSUM..&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;Escribir la imagen la memoria de applicación&lt;/li&gt;&lt;li&gt;fallas y retroceso de version de firmware&lt;/li&gt;&lt;/ol&gt;&lt;/ol&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="190" y="10" width="380" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="4U5-mPCTqO4f_CCePqSD-2" value="&lt;ul&gt;&lt;li&gt;single boot (single bank)&lt;/li&gt;&lt;ul&gt;&lt;li&gt;abstento a fallas&lt;/li&gt;&lt;li&gt;se divide la flash en dos secciones&lt;/li&gt;&lt;ul&gt;&lt;li&gt;bootloader (proyecto 1)&lt;/li&gt;&lt;li&gt;main application (proyecto 2)&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;li&gt;dual bank (ota)&lt;/li&gt;&lt;ul&gt;&lt;li&gt;doble memoria para la aplicación (un proyecto)&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="190" y="290" width="390" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ni9liCQ7tY6HZ8vNd-xJ" name="Bootloader">
+    <mxGraphModel dx="1188" dy="703" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-47" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="130" width="640" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-56" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ABbYhTxFXX8mZxNIWrJE-46" target="ABbYhTxFXX8mZxNIWrJE-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-46" value="Bootloader" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="180" y="180" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-48" value="Applicación" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="180" y="250" width="160" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-49" value="Single Bank :&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;1MB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="190" y="140" width="125" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-57" value="0800 0000&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="180" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-58" value="128KB" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="222.5" y="184" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-59" value="0x0802 0000" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="235" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-60" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1070" y="100" width="220" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-50" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="ABbYhTxFXX8mZxNIWrJE-60">
+          <mxGeometry width="220" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-52" value="Applicación" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="ABbYhTxFXX8mZxNIWrJE-60">
+          <mxGeometry x="30" y="60" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-51" value="Bootloader" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="ABbYhTxFXX8mZxNIWrJE-60">
+          <mxGeometry x="45" y="70" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-53" value="Dual Bank" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="ABbYhTxFXX8mZxNIWrJE-60">
+          <mxGeometry x="70" y="20" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-54" value="Applicación" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="ABbYhTxFXX8mZxNIWrJE-60">
+          <mxGeometry x="30" y="220" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-55" value="Bootloader" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="ABbYhTxFXX8mZxNIWrJE-60">
+          <mxGeometry x="45" y="230" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-61" value="&lt;ul&gt;&lt;li&gt;Salto a aplicacion&lt;/li&gt;&lt;li&gt;Lectura/escritura de la memoria FLASH&lt;/li&gt;&lt;li&gt;Borrado de la memoria FLASH&lt;/li&gt;&lt;li&gt;Verificación de integridad de firmware&lt;/li&gt;&lt;ul&gt;&lt;li&gt;CRC16 / 32&lt;/li&gt;&lt;li&gt;Checksum&lt;/li&gt;&lt;li&gt;HASH256&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="170" width="260" height="136" as="geometry" />
+        </mxCell>
+        <mxCell id="ABbYhTxFXX8mZxNIWrJE-63" value="external Flash&lt;div&gt;W25QXX /16&lt;/div&gt;&lt;div&gt;SD&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

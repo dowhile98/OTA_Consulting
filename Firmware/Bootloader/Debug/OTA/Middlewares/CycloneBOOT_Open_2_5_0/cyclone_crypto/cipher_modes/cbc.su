@@ -1,0 +1,2 @@
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/cipher_modes/cbc.c:54:21:cbcEncrypt	32	static
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/cipher_modes/cbc.c:101:21:cbcDecrypt	48	static
