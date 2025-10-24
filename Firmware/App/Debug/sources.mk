@@ -28,6 +28,7 @@ App/Middlewares/CycloneBOOT_Open_2_5_0/common \
 App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader \
 App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/core \
 App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/mcu/arm \
+App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external \
 App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal \
 App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/image \
 App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/memory \
@@ -52,6 +53,7 @@ App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/xof \
 App/Middlewares/lwprintf/src/lwprintf \
 App/Middlewares/lwprintf/src/system \
 App/Middlewares/stm32_log \
+App/Middlewares/w25q \
 App/Middlewares/ymodem \
 Core/Src \
 Core/Startup \

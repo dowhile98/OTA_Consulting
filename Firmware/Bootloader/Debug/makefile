@@ -10,6 +10,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include OTA/Middlewares/ymodem/subdir.mk
+-include OTA/Middlewares/w25q/subdir.mk
 -include OTA/Middlewares/stm32_log/subdir.mk
 -include OTA/Middlewares/lwprintf/src/system/subdir.mk
 -include OTA/Middlewares/lwprintf/src/lwprintf/subdir.mk
@@ -30,6 +31,7 @@ RM := rm -rf
 -include OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/memory/subdir.mk
 -include OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/image/subdir.mk
 -include OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/subdir.mk
+-include OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/subdir.mk
 -include OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/mcu/arm/subdir.mk
 -include OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/core/subdir.mk
 -include OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/subdir.mk

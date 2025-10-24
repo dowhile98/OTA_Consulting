@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item key="hasShownOverlayPopupBefore" value="true"/>
-	<item key="replaceBarOpen" value="false"/>
+	<item key="replaceBarOpen" value="true"/>
 	<list key="searchhistory">
+		<item value="ERROR_NOT_INITIALIZED"/>
+		<item value="w25qFlashSetConfig"/>
+		<item value="TRACE_ERROR("/>
+		<item value="TRACE_INFO("/>
+		<item value="Ymodem_Receive_UserCallback"/>
+		<item value="Int2Str"/>
+		<item value="hal_"/>
+		<item value="hal_uart"/>
 		<item value="receive_data"/>
 		<item value="receive_datta"/>
 		<item value="YMODEM_STATE_COMPLETE"/>
@@ -10,13 +18,14 @@
 		<item value="ymodem_wait_for_byte"/>
 		<item value="ymodem_change_state"/>
 		<item value="YMODEM_FRE"/>
-		<item value="YMODEM_MALLOC"/>
-		<item value="MALL"/>
-		<item value="ymodem_calculate_checksum"/>
-		<item value="osAllocMem"/>
+	</list>
+	<list key="replacehistory">
+		<item value="ERROR_FAILURE"/>
+		<item value="STM32_LOGE(TAG, "/>
+		<item value="STM32_LOGI(TAG, "/>
 	</list>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="&#x09;if(eeprom_init() != HAL_OK)"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
 			<item value="&#x09;if(eeprom_init() != HAL_OK)"/>
 		</list>

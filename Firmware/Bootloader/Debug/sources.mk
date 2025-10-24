@@ -29,6 +29,7 @@ OTA/Middlewares/CycloneBOOT_Open_2_5_0/common \
 OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader \
 OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/core \
 OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/mcu/arm \
+OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external \
 OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal \
 OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/image \
 OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/memory \
@@ -49,5 +50,6 @@ OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc \
 OTA/Middlewares/lwprintf/src/lwprintf \
 OTA/Middlewares/lwprintf/src/system \
 OTA/Middlewares/stm32_log \
+OTA/Middlewares/w25q \
 OTA/Middlewares/ymodem \
 

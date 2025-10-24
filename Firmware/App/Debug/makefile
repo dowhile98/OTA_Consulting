@@ -13,6 +13,7 @@ RM := rm -rf
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include App/Middlewares/ymodem/subdir.mk
+-include App/Middlewares/w25q/subdir.mk
 -include App/Middlewares/stm32_log/subdir.mk
 -include App/Middlewares/lwprintf/src/system/subdir.mk
 -include App/Middlewares/lwprintf/src/lwprintf/subdir.mk
@@ -37,6 +38,7 @@ RM := rm -rf
 -include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/memory/subdir.mk
 -include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/image/subdir.mk
 -include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/subdir.mk
+-include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/subdir.mk
 -include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/mcu/arm/subdir.mk
 -include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/core/subdir.mk
 -include App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/bootloader/subdir.mk

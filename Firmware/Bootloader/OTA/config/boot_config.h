@@ -34,7 +34,7 @@
 #define CBOOT_DRIVER_TRACE_LEVEL TRACE_LEVEL_INFO
 
 //Number of memories used
-#define NB_MEMORIES 1
+#define NB_MEMORIES 2
 //Update Single Bank Mode support
 #define UPDATE_SINGLE_BANK_SUPPORT ENABLED
 //Update Dual Bank Mode support
@@ -53,5 +53,6 @@
 //Verification RSA signture algo support
 #define VERIFY_RSA_SUPPORT ENABLED
 
+#define EXTERNAL_MEMORY_SUPPORT ENABLED
 
 #endif //!_BOOT_CONFIG_H

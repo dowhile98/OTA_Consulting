@@ -308,12 +308,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1760491820191</id>
-			<name>App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash</name>
-			<type>10</type>
+			<id>1761170940055</id>
+			<name>App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external</name>
+			<type>5</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-external</arguments>
+				<arguments>1.0-name-matches-false-false-w25q_flash_driver.h</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1761170940066</id>
+			<name>App/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external</name>
+			<type>5</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-w25q_flash_driver.c</arguments>
 			</matcher>
 		</filter>
 		<filter>

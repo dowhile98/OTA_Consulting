@@ -9,6 +9,8 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/Bootloader"/>
+			<item value="/home/tecna-smart-lab/GitHub/CycloneBOOT_Open_2_5_0/demo/st/nucleo_l496zg/iap_dual_bank/uart_ymodem_demo/stm32_cube_ide"/>
 			<item value="/home/tecna-smart-lab/GitHub/BrightC-V3-main/Firmware/BrightC_ETH_CycloneTCP_FileX"/>
 			<item value="/home/tecna-smart-lab/GitHub/BrightC-V3-main/Firmware/BrightC_Bootloader_CycloneBOOT"/>
 		</list>

@@ -1,0 +1,397 @@
+/*
+ * w25q_flash_driver.c
+ *
+ *  Created on: Oct 22, 2025
+ *      Author: tecna-smart-lab
+ */
+
+
+/**
+ * @file w25q_flash_driver.c
+ * @brief Flash driver implementation for W25Qxxx using generic W25Q library
+ */
+
+#include "w25q_flash_driver.h"
+#include "debug.h"
+#include "stm32_log.h"
+
+// Switch to the appropriate trace level
+#define TRACE_LEVEL CBOOT_DRIVER_TRACE_LEVEL
+
+static const char *TAG = "W25Q_DRIVER";
+
+// Memory driver private related functions
+static error_t w25qFlashDriverInit(void);
+static error_t w25qFlashDriverDeInit(void);
+static error_t w25qFlashDriverGetInfo(const FlashInfo **info);
+static error_t w25qFlashDriverGetStatus(FlashStatus *status);
+static error_t w25qFlashDriverWrite(uint32_t address, uint8_t* data, size_t length);
+static error_t w25qFlashDriverRead(uint32_t address, uint8_t* data, size_t length);
+static error_t w25qFlashDriverErase(uint32_t address, size_t length);
+static bool_t  w25qFlashDriverSectorAddr(uint32_t address);
+
+// Static variables
+static w25q_handle_t w25q_handle;
+static w25q_driver_config_t driver_config;
+static bool driver_initialized = false;
+static uint32_t flash_capacity = 0;
+
+/**
+ * @brief Memory Information
+ */
+static FlashInfo w25qFlashDriverInfo = {
+    FLASH_DRIVER_VERSION,
+    W25Q_FLASH_NAME,
+    FLASH_TYPE_EXTERNAL_SPI,  // Using SPI instead of QSPI for generic driver
+    W25Q_FLASH_ADDR,
+    0,  // Will be filled during initialization
+    W25Q_WRITE_SIZE,
+    W25Q_READ_SIZE,
+    0, 0, 0, 0, 0  // Reserved fields
+};
+
+/**
+ * @brief Memory Driver
+ */
+const FlashDriver w25qFlashDriver = {
+    w25qFlashDriverInit,
+    w25qFlashDriverDeInit,
+    w25qFlashDriverGetInfo,
+    w25qFlashDriverGetStatus,
+    w25qFlashDriverWrite,
+    w25qFlashDriverRead,
+    w25qFlashDriverErase,
+    NULL,  // No verify function
+    NULL,  // No verify function
+    w25qFlashDriverSectorAddr,
+};
+
+/**
+ * @brief Set hardware configuration for W25Q driver
+ * @param config Hardware configuration structure
+ */
+void w25qFlashSetConfig(const w25q_driver_config_t *config)
+{
+    if (config != NULL) {
+        memcpy(&driver_config, config, sizeof(w25q_driver_config_t));
+    }
+}
+
+/**
+ * @brief Default hardware callbacks (to be implemented by user)
+ */
+
+// Default SPI init callback
+static int32_t default_spi_init(void *user_ctx)
+{
+    // User must implement this based on their hardware
+    STM32_LOGI(TAG, "Default SPI init called - implement in application");
+    return 0;
+}
+
+// Default SPI transfer callback
+static int32_t default_spi_write_read(void *user_ctx, const uint8_t *tx, uint8_t *rx, size_t len)
+{
+    // User must implement this based on their hardware
+    STM32_LOGI(TAG, "Default SPI transfer called - implement in application");
+    return 0;
+}
+
+// Default CS control callback
+static void default_cs_control(void *user_ctx, bool level)
+{
+    // User must implement this based on their hardware
+}
+
+// Default delay callback
+static void default_delay_ms(uint32_t ms)
+{
+    // User must implement this based on their hardware
+    HAL_Delay(ms);  // Using HAL delay as default
+}
+
+// Default lock/unlock callbacks (for thread safety)
+static void default_lock(void *user_ctx) {}
+static void default_unlock(void *user_ctx) {}
+
+/**
+ * @brief Initialize Flash Memory
+ * @return Error code
+ */
+error_t w25qFlashDriverInit(void)
+{
+    w25q_config_t config;
+    w25q_info_t info;
+    w25q_err_t ret;
+
+    STM32_LOGI(TAG, "Initializing W25Q flash memory...");
+
+    // Set default callbacks if not configured
+    if (driver_config.hw_callbacks.spi_write_read == NULL) {
+        driver_config.hw_callbacks.spi_init = default_spi_init;
+        driver_config.hw_callbacks.spi_write_read = default_spi_write_read;
+        driver_config.hw_callbacks.cs_control = default_cs_control;
+        driver_config.hw_callbacks.delay_ms = default_delay_ms;
+        driver_config.hw_callbacks.lock = default_lock;
+        driver_config.hw_callbacks.unlock = default_unlock;
+        driver_config.user_ctx = NULL;
+        driver_config.timeout_ms = 5000;
+        driver_config.software_cs = true;
+
+        STM32_LOGW(TAG, "Using default callbacks - configure with w25qFlashSetConfig()");
+    }
+
+    // Configure W25Q library
+    config.hw = &driver_config.hw_callbacks;
+    config.user_ctx = driver_config.user_ctx;
+    config.timeout_ms = driver_config.timeout_ms;
+    config.software_cs = driver_config.software_cs;
+
+    // Initialize W25Q device
+    ret = w25q_init(&w25q_handle, &config);
+    if (ret != W25Q_OK) {
+        STM32_LOGE(TAG, "Failed to initialize W25Q flash: %d", ret);
+        return ERROR_FAILURE;
+    }
+
+    // Get device information
+    ret = w25q_get_info(&w25q_handle, &info);
+    if (ret != W25Q_OK) {
+        STM32_LOGE(TAG, "Failed to get W25Q info: %d", ret);
+        return ERROR_FAILURE;
+    }
+
+    // Update flash driver info with actual device capabilities
+    w25qFlashDriverInfo.size = info.capacity_bytes;
+    flash_capacity = info.capacity_bytes;
+
+    STM32_LOGI(TAG, "W25Q flash initialized: %s, Capacity: %lu bytes",
+               W25Q_FLASH_NAME, info.capacity_bytes);
+
+    driver_initialized = true;
+    return NO_ERROR;
+}
+
+/**
+ * @brief Deinitialize Flash Memory
+ * @return Error code
+ */
+error_t w25qFlashDriverDeInit(void)
+{
+    if (!driver_initialized) {
+        return NO_ERROR;
+    }
+
+    w25q_err_t ret = w25q_deinit(&w25q_handle);
+    if (ret != W25Q_OK) {
+        STM32_LOGE(TAG, "Failed to deinitialize W25Q flash: %d", ret);
+        return ERROR_FAILURE;
+    }
+
+    driver_initialized = false;
+    STM32_LOGI(TAG, "W25Q flash deinitialized");
+    return NO_ERROR;
+}
+
+/**
+ * @brief Get Flash Memory information
+ * @param[in,out] info Pointer to the Memory information structure to be returned
+ * @return Error code
+ */
+error_t w25qFlashDriverGetInfo(const FlashInfo **info)
+{
+    if (!driver_initialized) {
+        return ERROR_FAILURE;
+    }
+
+    // Set Memory information pointer
+    *info = (const FlashInfo*) &w25qFlashDriverInfo;
+    return NO_ERROR;
+}
+
+/**
+ * @brief Get Flash Memory status
+ * @param[in,out] status Pointer to the Memory status to be returned
+ * @return Error code
+ */
+error_t w25qFlashDriverGetStatus(FlashStatus *status)
+{
+    uint8_t sr;
+    w25q_err_t ret;
+
+    if (!driver_initialized) {
+        return ERROR_NOT_INITIALIZED;
+    }
+
+    if (status == NULL) {
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    // Read status register
+    ret = w25q_read_status(&w25q_handle, &sr);
+    if (ret != W25Q_OK) {
+        STM32_LOGE(TAG, "Failed to read status register: %d", ret);
+        return ERROR_FAILURE;
+    }
+
+    // Check busy bit
+    if (sr & 0x01) {  // BUSY bit
+        *status = FLASH_STATUS_BUSY;
+    } else {
+        *status = FLASH_STATUS_OK;
+    }
+
+    return NO_ERROR;
+}
+
+/**
+ * @brief Write data in Flash Memory at the given address
+ * @param[in] address Address in Flash Memory to write to
+ * @param[in] data Pointer to the data to write
+ * @param[in] length Number of data bytes to write in
+ * @return Error code
+ */
+error_t w25qFlashDriverWrite(uint32_t address, uint8_t* data, size_t length)
+{
+    w25q_err_t ret;
+    uint32_t top_address;
+
+    if (!driver_initialized) {
+        return ERROR_NOT_INITIALIZED;
+    }
+
+    // Precompute the top address
+    top_address = W25Q_FLASH_ADDR + flash_capacity;
+
+    // Check address validity
+    if (address >= top_address) {
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    // Check parameters validity
+    if (data == NULL || address + length > top_address) {
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    STM32_LOGD(TAG, "Write process: 0x%lX (%lu bytes)", address, length);
+
+    // Perform write operation using W25Q library
+    ret = w25q_write(&w25q_handle, address, data, length);
+    if (ret != W25Q_OK) {
+        STM32_LOGE(TAG, "Failed to write flash: %d", ret);
+        return ERROR_FAILURE;
+    }
+
+    return NO_ERROR;
+}
+
+/**
+ * @brief Read data from Memory at the given address
+ * @param[in] address Address in Memory to read from
+ * @param[in] data Buffer to store read data
+ * @param[in] length Number of data bytes to read out
+ * @return Error code
+ */
+error_t w25qFlashDriverRead(uint32_t address, uint8_t* data, size_t length)
+{
+    w25q_err_t ret;
+    uint32_t top_address;
+
+    if (!driver_initialized) {
+        return ERROR_NOT_INITIALIZED;
+    }
+
+    // Precompute the top address
+    top_address = W25Q_FLASH_ADDR + flash_capacity;
+
+    // Check address validity
+    if (address >= top_address) {
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    // Check parameters validity
+    if (data == NULL || address + length > top_address) {
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    STM32_LOGD(TAG, "Read process: 0x%lX (%lu bytes)", address, length);
+
+    // Perform read operation using W25Q library
+    ret = w25q_read(&w25q_handle, address, data, length);
+    if (ret != W25Q_OK) {
+        STM32_LOGE(TAG, "Failed to read flash: %d", ret);
+        return ERROR_FAILURE;
+    }
+
+    return NO_ERROR;
+}
+
+/**
+ * @brief Erase data from Memory at the given address
+ * The erase operation will be done sector by sector according to
+ * the given memory address and size.
+ * @param[in] address Memory start erase address
+ * @param[in] length Number of data bytes to be erased
+ * @return Error code
+ */
+error_t w25qFlashDriverErase(uint32_t address, size_t length)
+{
+    w25q_err_t ret;
+    uint32_t top_address;
+    uint32_t current_addr;
+    size_t remaining;
+
+    if (!driver_initialized) {
+        return ERROR_NOT_INITIALIZED;
+    }
+
+    // Precompute the top address
+    top_address = W25Q_FLASH_ADDR + flash_capacity;
+
+    // Check address validity
+    if (address >= top_address) {
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    // Check parameters validity
+    if (address + length > top_address) {
+        return ERROR_INVALID_PARAMETER;
+    }
+
+    STM32_LOGI(TAG, "Erase process: 0x%lX (%lu bytes)", address, length);
+
+    // Align address to sector boundary and adjust length
+    uint32_t sector_size = 4096;  // Standard W25Q sector size
+    uint32_t start_sector = address / sector_size;
+    uint32_t end_sector = (address + length - 1) / sector_size;
+
+    current_addr = start_sector * sector_size;
+    remaining = (end_sector - start_sector + 1) * sector_size;
+
+    // Perform erase operation sector by sector
+    while (remaining > 0) {
+        STM32_LOGD(TAG, "Erasing sector: 0x%lX", current_addr);
+
+        ret = w25q_erase_sector(&w25q_handle, current_addr);
+        if (ret != W25Q_OK) {
+            STM32_LOGE(TAG, "Failed to erase sector 0x%lX: %d", current_addr, ret);
+            return ERROR_FAILURE;
+        }
+
+        current_addr += sector_size;
+        remaining -= sector_size;
+    }
+
+    return NO_ERROR;
+}
+
+/**
+ * @brief Check if address is a sector start address
+ * @param[in] address Address to check
+ * @return TRUE if sector address, FALSE otherwise
+ */
+bool_t w25qFlashDriverSectorAddr(uint32_t address)
+{
+    // Check if address is aligned to 4KB sector boundary
+    return (address % 4096 == 0) ? TRUE : FALSE;
+}
