@@ -8,8 +8,8 @@
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:120:9:w25qFlashDriverInit	4
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:178:9:w25qFlashDriverDeInit	3
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:200:9:w25qFlashDriverGetInfo	2
-/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:216:9:w25qFlashDriverGetStatus	5
-/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:253:9:w25qFlashDriverWrite	6
-/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:294:9:w25qFlashDriverRead	6
-/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:336:9:w25qFlashDriverErase	6
-/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:392:8:w25qFlashDriverSectorAddr	1
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:217:9:w25qFlashDriverGetStatus	5
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:254:9:w25qFlashDriverWrite	6
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:295:9:w25qFlashDriverRead	6
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:337:9:w25qFlashDriverErase	6
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external/w25q_flash_driver.c:393:8:w25qFlashDriverSectorAddr	1

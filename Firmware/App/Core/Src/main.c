@@ -21,6 +21,7 @@
 #include "dma.h"
 #include "rng.h"
 #include "spi.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -133,14 +134,16 @@ int main(void)
 	HAL_Init();
 
 	/* USER CODE BEGIN Init */
+	stm32_log_init(NULL);
 
+	STM32_LOGI(TAG, "Inited...");
 	/* USER CODE END Init */
 
 	/* Configure the system clock */
 	SystemClock_Config();
 
 	/* USER CODE BEGIN SysInit */
-
+	STM32_LOGI(TAG, "SystemClock_Config() finish...");
 	/* USER CODE END SysInit */
 
 	/* Initialize all configured peripherals */
@@ -150,9 +153,9 @@ int main(void)
 	MX_USART2_UART_Init();
 	MX_SPI1_Init();
 	MX_USART1_UART_Init();
+	MX_TIM2_Init();
+	MX_TIM3_Init();
 	/* USER CODE BEGIN 2 */
-	stm32_log_init(NULL);
-
 
 	for(uint8_t i = 0; i < 15; i++)
 	{
@@ -161,6 +164,7 @@ int main(void)
 	}
 	HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+
 	STM32_LOGI(TAG, "user application started...\r\n!");
 
 
@@ -188,6 +192,7 @@ int main(void)
 	}
 	//generador de numeros aleatorios
 	error = trngInit();
+
 	if(error)
 	{
 		STM32_LOGI(TAG, "failed trng init");
@@ -209,48 +214,39 @@ int main(void)
 	updateSettings.memories[0].memoryRole 			   = MEMORY_ROLE_PRIMARY;
 	updateSettings.memories[0].memoryType 			   = MEMORY_TYPE_FLASH;
 	updateSettings.memories[0].driver     			   = &stm32f4xxFlashDriver;
-	updateSettings.memories[0].nbSlots    			   = 1;
+	updateSettings.memories[0].nbSlots    			   = 2;
 	//User update settings primary memory slot 0 configuration
 	updateSettings.memories[0].slots[0].type 		   = SLOT_TYPE_DIRECT;
 	updateSettings.memories[0].slots[0].cType 		= SLOT_CONTENT_APP;
 	updateSettings.memories[0].slots[0].memParent 	= &updateSettings.memories[0];
 	updateSettings.memories[0].slots[0].addr 		   = 0x08020000;
-	updateSettings.memories[0].slots[0].size 		   = 0xE0000; //128x3 = 384kb->1024KB -128kb
+	updateSettings.memories[0].slots[0].size 		   = 0x60000; //128x3 = 384kb
 
 	//	//User update setting primary memory slot 1 configuration
-	//	updateSettings.memories[0].slots[1].type 		   = SLOT_TYPE_DIRECT;
-	//	updateSettings.memories[0].slots[1].cType 		= SLOT_CONTENT_APP | SLOT_CONTENT_BACKUP;
-	//	updateSettings.memories[0].slots[1].memParent 	= &updateSettings.memories[0];
-	//	updateSettings.memories[0].slots[1].addr 		   = 0x08080000;
-	//	updateSettings.memories[0].slots[1].size 		   = 0x60000;	//128x3 = 384kb
+	updateSettings.memories[0].slots[1].type 		   = SLOT_TYPE_DIRECT;
+	updateSettings.memories[0].slots[1].cType 		= SLOT_CONTENT_APP | SLOT_CONTENT_BACKUP;
+	updateSettings.memories[0].slots[1].memParent 	= &updateSettings.memories[0];
+	updateSettings.memories[0].slots[1].addr 		   = 0x08080000;
+	updateSettings.memories[0].slots[1].size 		   = 0x60000;	//128x3 = 384kb
 
-	//external memory
-	//User update settings secondary memory configuration
-	updateSettings.memories[1].memoryRole 			   = MEMORY_ROLE_SECONDARY;
-	updateSettings.memories[1].memoryType 			   = MEMORY_TYPE_FLASH;
-	updateSettings.memories[1].driver 				   = &w25qFlashDriver;
-	updateSettings.memories[1].nbSlots 				   = 1;
-
-	//User update settings secondary memory slot 0 configuration
-	updateSettings.memories[1].slots[0].type 		   = SLOT_TYPE_DIRECT;
-	updateSettings.memories[1].slots[0].cType 		= SLOT_CONTENT_APP | SLOT_CONTENT_BACKUP;
-	updateSettings.memories[1].slots[0].memParent 	= &updateSettings.memories[1];
-	updateSettings.memories[1].slots[0].addr 		   = 0x00000000;
-	updateSettings.memories[1].slots[0].size 		   = 0x200000;
-
-
+	//Boot
 	if(HAL_GPIO_ReadPin(BUTTON_GPIO_Port, BUTTON_Pin))
 	{
 		STM32_LOGI(TAG, "Receiving firmware update image...\r\n");
 		//Initialize IAP update context
 		cerror = updateInit(&updateContext, &updateSettings);
+		STM32_LOGI(TAG, "cerror=%d", cerror);
 
 		if(cerror)
 		{
 			STM32_LOGI(TAG, "failed to initialize IAP\r\n"); // in application programming
 			Error_Handler();
 		}
+		STM32_LOGI(TAG, "Ymodem Init...");
+
 		result = ymodem_receive(&ymodem, ymodem_data_callback);
+
+		STM32_LOGE(TAG, "ymodem result=%d", result);
 
 		if(result == COM_OK)
 		{
@@ -287,7 +283,9 @@ int main(void)
 
 		/* USER CODE BEGIN 3 */
 		LED1_GPIO_Port->ODR ^= LED1_Pin;
-		HAL_Delay(1000);
+		HAL_Delay(100);
+		LED2_GPIO_Port->ODR ^= LED2_Pin;
+		HAL_Delay(100);
 	}
 	/* USER CODE END 3 */
 }
@@ -340,16 +338,16 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 int stm32_log_out(int ch, lwprintf_t* p) {
 
-    uint8_t c = (uint8_t)ch;
+	uint8_t c = (uint8_t)ch;
 
-    /* Don't print zero */
-    if (c == '\0') {
-        return ch;
-    }
-    ITM_SendChar(ch);
-    //add uart
-    HAL_UART_Transmit(&huart1, &c, 1, 1);
-    return ch;
+	/* Don't print zero */
+	if (c == '\0') {
+		return ch;
+	}
+	ITM_SendChar(ch);
+	//add uart
+	HAL_UART_Transmit(&huart1, &c, 1, 1);
+	return ch;
 }
 
 // User-provided read function (w25q for UART)
@@ -369,8 +367,14 @@ COM_StatusTypeDef ymodem_uart_write(const uint8_t *data, size_t size) {
 COM_StatusTypeDef ymodem_data_callback(uint8_t *data, size_t length, uint32_t offset) {
 
 	error_t error;
+
 	//write to flash
-	error = updateProcess(&updateContext, data, length);
+	if((error = updateProcess(&updateContext, data, length) )!= NO_ERROR)
+	{
+		STM32_LOGI(TAG, "YMODEM: length: %d, offset: %d",length, offset);
+		STM32_LOGE(TAG, "Error update Process");
+
+	}
 
 	return error;
 }
@@ -431,6 +435,7 @@ void Error_Handler(void)
 	/* USER CODE BEGIN Error_Handler_Debug */
 	/* User can add his own implementation to report the HAL error return state */
 	__disable_irq();
+	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 	while (1)
 	{
 	}

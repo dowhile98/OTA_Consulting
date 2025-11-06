@@ -3,6 +3,8 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="true"/>
 	<list key="searchhistory">
+		<item value="updateSettings"/>
+		<item value="example"/>
 		<item value="ERROR_NOT_INITIALIZED"/>
 		<item value="w25qFlashSetConfig"/>
 		<item value="TRACE_ERROR("/>
@@ -16,17 +18,18 @@
 		<item value="YMODEM_STATE_COMPLETE"/>
 		<item value="ymodem_receive"/>
 		<item value="ymodem_wait_for_byte"/>
-		<item value="ymodem_change_state"/>
-		<item value="YMODEM_FRE"/>
 	</list>
 	<list key="replacehistory">
+		<item value="bootSettings"/>
+		<item value="w25q"/>
 		<item value="ERROR_FAILURE"/>
 		<item value="STM32_LOGE(TAG, "/>
 		<item value="STM32_LOGI(TAG, "/>
 	</list>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value=""/>
+		<item key="selection" value="&#x09;//&#x09;updateSettings.memories[0].slots[1].type &#x09;&#x09;   = SLOT_TYPE_DIRECT;"/>
 		<list key="findhistory">
+			<item value="&#x09;//&#x09;updateSettings.memories[0].slots[1].type &#x09;&#x09;   = SLOT_TYPE_DIRECT;"/>
 			<item value="&#x09;if(eeprom_init() != HAL_OK)"/>
 		</list>
 	</section>

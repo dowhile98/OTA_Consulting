@@ -253,7 +253,10 @@ cboot_error_t updateProcess(UpdateContext *context, const void *data, size_t len
    // Initialize variables
    n = 0;
 
+
    // Point to input image handler
+
+
    inputImage = &context->imageProcessCtx.inputImage;
 
    // Point to the beginning of the data
@@ -282,6 +285,7 @@ cboot_error_t updateProcess(UpdateContext *context, const void *data, size_t len
          // Is any error?
          if (cerror)
          {
+        	 TRACE_INFO("error: %d", cerror);
 #if (UPDATE_SINGLE_BANK_SUPPORT == ENABLED)
             // Erase output image slot first bytes to make sure bootloader doesn't
             // consider it as a new valid update image if a reboot occurs
@@ -293,6 +297,7 @@ cboot_error_t updateProcess(UpdateContext *context, const void *data, size_t len
             // Is any error?
             if (cerror)
             {
+            	TRACE_INFO("error: %d", cerror);
                return cerror;
             }
          }

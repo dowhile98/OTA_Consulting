@@ -6,9 +6,9 @@
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:184:9:stm32f4xxFlashDriverInit	1
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:474:9:stm32f4xxFlashDriverSwapBanks	1
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:597:9:flashDriverSwapBanksNoInit	4
-/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:753:9:stm32f4xxFlashDriverEraseSector	9
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:753:9:stm32f4xxFlashDriverEraseSector	6
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:988:7:stm32f4xxFlashGetSector	4
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:400:9:stm32f4xxFlashDriverErase	9
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:726:8:stm32f4xxFlashDriverIsSectorAddr	2
-/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:831:9:stm32f4xxFlashDriverWriteWord	13
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:831:9:stm32f4xxFlashDriverWriteWord	8
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/internal/stm32f4xx_flash_driver.c:281:9:stm32f4xxFlashDriverWrite	9

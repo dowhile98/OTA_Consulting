@@ -19,7 +19,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "rng.h"
-#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -28,7 +27,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "stm32_log.h"
-
+#include "spi.h"
 
 #include "bootloader/boot.h"
 #include "drivers/memory/flash/internal/stm32f4xx_flash_driver.h"
@@ -71,23 +70,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-COM_StatusTypeDef ymodem_uart_read(uint8_t *data, size_t size, uint32_t timeout_ms);
 
-COM_StatusTypeDef ymodem_uart_write(const uint8_t *data, size_t size);
-
-COM_StatusTypeDef ymodem_data_callback(uint8_t *data, size_t length, uint32_t offset);
-
-static int32_t w25q_spi_init(void *user_ctx);
-
-static int32_t w25q_spi_write_read(void *user_ctx, const uint8_t *tx, uint8_t *rx, size_t len);
-
-static void w25q_cs_control(void *user_ctx, bool level);
-
-static void w25q_delay_ms(uint32_t ms);
-
-static void w25q_lock(void *user_ctx);
-
-static void w25q_unlock(void *user_ctx);
 /* USER CODE END 0 */
 
 /**
@@ -101,21 +84,6 @@ int main(void)
 	cboot_error_t cerror;
 	uint32_t ticks = 0;
 
-	static w25q_hw_t w25q_hw = {
-			.spi_init = w25q_spi_init,
-			.spi_write_read = w25q_spi_write_read,
-			.cs_control = w25q_cs_control,
-			.delay_ms = w25q_delay_ms,
-			.lock = w25q_lock,
-			.unlock = w25q_unlock
-	};
-
-	w25q_driver_config_t config = {
-			.hw_callbacks = w25q_hw,
-			.user_ctx = NULL,
-			.timeout_ms = 5000,
-			.software_cs = true
-	};
 	/* USER CODE END 1 */
 
 	/* MCU Configuration--------------------------------------------------------*/
@@ -137,9 +105,7 @@ int main(void)
 	/* Initialize all configured peripherals */
 	MX_GPIO_Init();
 	MX_RNG_Init();
-	MX_SPI1_Init();
 	MX_USART1_UART_Init();
-	MX_USART2_UART_Init();
 	/* USER CODE BEGIN 2 */
 	stm32_log_init(NULL);
 
@@ -151,7 +117,7 @@ int main(void)
 	STM32_LOGI(TAG, "Target: STM32F407");
 
 	//external flash driver init
-	w25qFlashSetConfig(&config);
+
 
 	//Get default booloader user settings
 	bootGetDefaultSettings(&bootSettings);
@@ -166,25 +132,14 @@ int main(void)
 	bootSettings.memories[0].slots[0].cType = SLOT_CONTENT_BINARY;
 	bootSettings.memories[0].slots[0].memParent = &bootSettings.memories[0];
 	bootSettings.memories[0].slots[0].addr = 0x08020000;
-	bootSettings.memories[0].slots[0].size = 0xE0000;
+	bootSettings.memories[0].slots[0].size = 0x60000;
 	//User settings primary memory slot 1 configuration
-	//	bootSettings.memories[0].slots[1].type = SLOT_TYPE_DIRECT;
-	//	bootSettings.memories[0].slots[1].cType = SLOT_CONTENT_UPDATE;
-	//	bootSettings.memories[0].slots[1].memParent = &bootSettings.memories[0];
-	//	bootSettings.memories[0].slots[1].addr = 0x08080000;
-	//	bootSettings.memories[0].slots[1].size = 0x60000;
+	bootSettings.memories[0].slots[1].type = SLOT_TYPE_DIRECT;
+	bootSettings.memories[0].slots[1].cType = SLOT_CONTENT_UPDATE;
+	bootSettings.memories[0].slots[1].memParent = &bootSettings.memories[0];
+	bootSettings.memories[0].slots[1].addr = 0x08080000;
+	bootSettings.memories[0].slots[1].size = 0x60000;
 
-	bootSettings.memories[1].memoryRole 			   = MEMORY_ROLE_SECONDARY;
-	bootSettings.memories[1].memoryType 			   = MEMORY_TYPE_FLASH;
-	bootSettings.memories[1].driver 				   = &w25qFlashDriver;
-	bootSettings.memories[1].nbSlots 				   = 1;
-
-	//User update settings secondary memory slot 0 configuration
-	bootSettings.memories[1].slots[0].type 		   = SLOT_TYPE_DIRECT;
-	bootSettings.memories[1].slots[0].cType 		= SLOT_CONTENT_APP | SLOT_CONTENT_BACKUP;
-	bootSettings.memories[1].slots[0].memParent 	= &bootSettings.memories[1];
-	bootSettings.memories[1].slots[0].addr 		   = 0x00000000;
-	bootSettings.memories[1].slots[0].size 		   = 0x200000;
 
 	//Initialize bootloader
 	cerror = bootInit(&bootContext, &bootSettings);
@@ -240,12 +195,11 @@ void SystemClock_Config(void)
 	/** Initializes the RCC Oscillators according to the specified parameters
 	 * in the RCC_OscInitTypeDef structure.
 	 */
-	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-	RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-	RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+	RCC_OscInitStruct.HSEState = RCC_HSE_ON;
 	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-	RCC_OscInitStruct.PLL.PLLM = 8;
+	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+	RCC_OscInitStruct.PLL.PLLM = 4;
 	RCC_OscInitStruct.PLL.PLLN = 168;
 	RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
 	RCC_OscInitStruct.PLL.PLLQ = 7;
@@ -284,74 +238,7 @@ int stm32_log_out(int ch, lwprintf_t* p) {
 	return ch;
 }
 
-// User-provided read function (w25q for UART)
-COM_StatusTypeDef ymodem_uart_read(uint8_t *data, size_t size, uint32_t timeout_ms) {
-	return HAL_UART_Receive(&huart2, data, size, timeout_ms);
 
-}
-
-// User-provided write function (w25q for UART)
-COM_StatusTypeDef ymodem_uart_write(const uint8_t *data, size_t size) {
-
-	return HAL_UART_Transmit(&huart2, data, size, 2000);
-
-}
-
-// User data callback to process received data
-COM_StatusTypeDef ymodem_data_callback(uint8_t *data, size_t length, uint32_t offset) {
-
-	error_t error = NO_ERROR;
-	//write to flash
-
-
-	return error;
-}
-
-static int32_t w25q_spi_init(void *user_ctx)
-{
-	MX_SPI1_Init();
-	// Inicializar hardware SPI aquí
-	STM32_LOGI(TAG, "SPI inicializado\r\n");
-	return 0;
-}
-
-static int32_t w25q_spi_write_read(void *user_ctx, const uint8_t *tx, uint8_t *rx, size_t len)
-{
-	int32_t ret = HAL_OK;
-	// Implementar transferencia SPI aquí
-	if(tx == NULL)
-	{
-		ret = HAL_SPI_Receive(&hspi1, rx, len, HAL_MAX_DELAY);
-	}
-	else if(rx == NULL)
-	{
-		ret = HAL_SPI_Transmit(&hspi1, tx, len, HAL_MAX_DELAY);
-	}
-	else
-	{
-		ret = HAL_SPI_TransmitReceive(&hspi1, tx, rx, len, HAL_MAX_DELAY);
-	}
-
-
-	return ret;
-}
-
-static void w25q_cs_control(void *user_ctx, bool level)
-{
-	HAL_GPIO_WritePin(CS_GPIO_Port, CS_Pin, level ? GPIO_PIN_RESET : GPIO_PIN_SET);
-}
-
-static void w25q_delay_ms(uint32_t ms)
-{
-	HAL_Delay(ms);
-}
-
-static void w25q_lock(void *user_ctx) {
-
-}
-static void w25q_unlock(void *user_ctx) {
-
-}
 /* USER CODE END 4 */
 
 /**

@@ -20,7 +20,12 @@ OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa_misc.o: \
  /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/mpi/mpi.h \
  /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa_misc.h \
  /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/encoding/asn1.h \
- /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/common/debug.h
+ /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/common/debug.h \
+ /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/stm32_log/stm32_log.h \
+ /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/Bootloader/OTA/config/stm32_log_config.h \
+ /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/lwprintf/src/include/lwprintf/lwprintf.h \
+ /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/lwprintf/src/include/lwprintf/lwprintf_opt.h \
+ /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/Bootloader/OTA/config/lwprintf_opts.h
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/core/crypto.h:
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/common/os_port.h:
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/Bootloader/OTA/config/os_port_config.h:
@@ -42,3 +47,8 @@ OTA/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa_misc.o: \
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/pkc/rsa_misc.h:
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto/encoding/asn1.h:
 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/common/debug.h:
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/stm32_log/stm32_log.h:
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/Bootloader/OTA/config/stm32_log_config.h:
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/lwprintf/src/include/lwprintf/lwprintf.h:
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/lwprintf/src/include/lwprintf/lwprintf_opt.h:
+/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/Bootloader/OTA/config/lwprintf_opts.h:

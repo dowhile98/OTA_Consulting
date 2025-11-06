@@ -32,7 +32,7 @@
 //Dependencies
 #include <stdio.h>
 #include "os_port.h"
-
+#include "stm32_log.h"
 //Trace level definitions
 #define TRACE_LEVEL_OFF      0
 #define TRACE_LEVEL_FATAL    1
@@ -49,7 +49,7 @@
 
 //Trace output redirection
 #ifndef TRACE_PRINTF
-   #define TRACE_PRINTF(...) osSuspendAllTasks(), fprintf(stderr, __VA_ARGS__), osResumeAllTasks()
+   #define TRACE_PRINTF(...) STM32_LOGI("cycloneBOOT", __VA_ARGS__)
 #endif
 
 #ifndef TRACE_ARRAY

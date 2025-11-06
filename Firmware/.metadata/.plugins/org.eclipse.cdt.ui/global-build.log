@@ -1,38 +1,28 @@
-16:04:27 **** Incremental Build of configuration Debug for project App ****
+23:50:08 **** Incremental Build of configuration Debug for project Bootloader ****
 make -j12 all 
-python3 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/../utils/rc/rc.py /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/resources /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/App/App/Src/res.c
-[DIR]   /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/resources
-[DIR]   /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/resources/data
-[FILE]  /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/resources/data/test.txt  (40 bytes)
-[DIR]   /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/resources/keys
-[FILE]  /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/resources/keys/rsa_private_key.pem  (900 bytes)
-[FILE]  /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/resources/keys/rsa_public_key.pem  (276 bytes)
----------------------------------------------------------
-
-Resource compilation completed successfully
-1396 bytes successfully written to /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/App/App/Src/res.c !
-Resource directory: /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/resources
-Output file: /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/App/App/Src/res.c
----------------------------------------------------------
-
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F4xxxG -DGPL_LICENSE_TERMS_ACCEPTED -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/ymodem" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/w25q" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/Bootloader/OTA/config" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/common" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/lwprintf/src/include" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/stm32_log" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/lwprintf/src/include/lwprintf" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -Og -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Bootloader.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/Bootloader/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Bootloader.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Bootloader.elf
  
-arm-none-eabi-gcc "../App/App/Src/res.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32F4xxxG -DGPL_LICENSE_TERMS_ACCEPTED -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot/drivers/memory/flash/external" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/w25q" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/App/config" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/common" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_boot" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/CycloneBOOT_Open_2_5_0/cyclone_crypto" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/lwprintf/src/include" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/lwprintf/src/include/lwprintf" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/lwprintf/src/include/system" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/stm32_log" -I"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/OTA_Package/Middlewares/ymodem" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"App/App/Src/res.d" -MT"App/App/Src/res.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/App/Src/res.o"
-arm-none-eabi-gcc -o "App.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="App.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: App.elf
- 
-arm-none-eabi-size  App.elf 
-arm-none-eabi-objdump -h -S App.elf  > "App.list"
-arm-none-eabi-objcopy  -O binary App.elf  "App.bin"
+arm-none-eabi-size  Bootloader.elf 
+arm-none-eabi-objdump -h -S Bootloader.elf  > "Bootloader.list"
    text	   data	    bss	    dec	    hex	filename
-  77372	    220	   7180	  84772	  14b24	App.elf
+  20312	    124	   2180	  22616	   5858	Bootloader.elf
 Finished building: default.size.stdout
  
-Finished building: App.bin
+Finished building: Bootloader.list
  
-Finished building: App.list
+23:50:12 **** Incremental Build of configuration Debug for project Bootloader ****
+make -j12 all 
+arm-none-eabi-size  Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20312	    124	   2180	  22616	   5858	Bootloader.elf
+Finished building: default.size.stdout
  
-python3 /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/scripts/misc/copy_file.py /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/Debug/App.bin /home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/
-/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/App/config/version.h
-Version header file found.
-File copied successfully from '/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/Debug/App.bin' to '/home/tecna-smart-lab/GitHub/OTA_Consulting/Firmware/App/App_1_0_0.bin'.
+23:51:22 **** Incremental Build of configuration Debug for project Bootloader ****
+make -j12 all 
+arm-none-eabi-size  Bootloader.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20312	    124	   2180	  22616	   5858	Bootloader.elf
+Finished building: default.size.stdout
  
